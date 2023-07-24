@@ -27,7 +27,7 @@ final readonly class ApiKeyAuthentication implements AuthenticationInterface
             return null;
         }
 
-        return $this->userRepository->authenticate($apiKey);
+        return $this->userRepository->authenticate($apiKey->getIdentifier(), $apiKey->getSecret());
     }
 
     public function unauthorizedResponse(ServerRequestInterface $request): ResponseInterface

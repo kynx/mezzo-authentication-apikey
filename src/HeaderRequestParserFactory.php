@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kynx\Mezzio\Authentication\ApiKey;
 
+use Kynx\ApiKey\KeyGeneratorInterface;
 use Mezzio\Authentication\Exception\InvalidConfigException;
 use Psr\Container\ContainerInterface;
 
@@ -18,6 +19,6 @@ final class HeaderRequestParserFactory
             throw new InvalidConfigException("Header name not present in authentication config");
         }
 
-        return new HeaderRequestParser($headerName);
+        return new HeaderRequestParser($container->get(KeyGeneratorInterface::class), $headerName);
     }
 }

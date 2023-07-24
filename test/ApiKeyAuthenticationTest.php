@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace KynxTest\Mezzio\Authentication\ApiKey;
 
+use Kynx\ApiKey\ApiKey;
 use Kynx\Mezzio\Authentication\ApiKey\ApiKeyAuthentication;
 use Kynx\Mezzio\Authentication\ApiKey\RequestParserInterface;
 use Mezzio\Authentication\UserInterface;
@@ -53,12 +54,14 @@ final class ApiKeyAuthenticationTest extends TestCase
 
     public function testAuthenticateAuthenticatesAgainstUserRepository(): void
     {
-        $expected = $this->createStub(UserInterface::class);
-        $apiKey   = 'test-api-key';
+        $expected   = $this->createStub(UserInterface::class);
+        $identifier = 'aaaaaaaa';
+        $secret     = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+        $apiKey     = new ApiKey('foo', $identifier, $secret);
         $this->requestParser->method('getApiKey')
             ->willReturn($apiKey);
         $this->userRepository->method('authenticate')
-            ->with($apiKey)
+            ->with($identifier, $secret)
             ->willReturn($expected);
 
         $actual = $this->authentication->authenticate($this->createStub(ServerRequestInterface::class));

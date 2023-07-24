@@ -4,6 +4,21 @@ declare(strict_types=1);
 
 namespace Kynx\Mezzio\Authentication\ApiKey;
 
+use Kynx\ApiKey\KeyGeneratorInterface;
+
+/**
+ * @psalm-type ApiKeyConfig=array{
+ *   prefix?: string,
+ *   secret-length?: int,
+ *   identifier-length?: int,
+ *   characters?: string
+ * }
+ * @psalm-type ApiAuthenticationConfig=array{
+ *   header-name: string,
+ *   primary?: ApiKeyConfig,
+ *   fallbacks?: array<array-key, ApiKeyConfig>
+ * }
+ */
 class ConfigProvider
 {
     public function __invoke(): array
@@ -14,12 +29,14 @@ class ConfigProvider
         ];
     }
 
+    /**
+     * @return array{api-key: ApiAuthenticationConfig}
+     */
     public function getAuthenticationConfig(): array
     {
         return [
             'api-key' => [
-                'request-parser' => HeaderRequestParser::class,
-                'header-name'    => 'X-API-Key',
+                'header-name' => 'X-API-Key',
             ],
         ];
     }
@@ -28,8 +45,9 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                ApiKeyAuthentication::class => ApiKeyAuthenticationFactory::class,
-                HeaderRequestParser::class  => HeaderRequestParserFactory::class,
+                ApiKeyAuthentication::class   => ApiKeyAuthenticationFactory::class,
+                RequestParserInterface::class => HeaderRequestParserFactory::class,
+                KeyGeneratorInterface::class  => KeyGeneratorFactory::class,
             ],
         ];
     }

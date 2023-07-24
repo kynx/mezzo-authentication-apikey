@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kynx\Mezzio\Authentication\ApiKey;
 
+use Kynx\ApiKey\ApiKey;
 use Psr\Http\Message\ServerRequestInterface;
 
 interface RequestParserInterface
@@ -11,5 +12,5 @@ interface RequestParserInterface
     /**
      * Returns API key from request if present, otherwise returns null
      */
-    public function getApiKey(ServerRequestInterface $request): ?string;
+    public function getApiKey(ServerRequestInterface $request): ?ApiKey;
 }

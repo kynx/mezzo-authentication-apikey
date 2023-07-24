@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace KynxTest\Mezzio\Authentication\ApiKey;
 
+use Kynx\ApiKey\ApiKey;
+use Kynx\ApiKey\KeyGeneratorInterface;
 use Kynx\Mezzio\Authentication\ApiKey\HeaderRequestParserFactory;
 use Mezzio\Authentication\Exception\InvalidConfigException;
 use PHPUnit\Framework\TestCase;
@@ -28,28 +30,30 @@ final class HeaderRequestParserFactoryTest extends TestCase
 
     public function testInvokeReturnsConfiguredInstance(): void
     {
-        $expected = 'test-api-key';
+        $expected = new ApiKey('test', 'aaaaaaaa', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
         $factory  = new HeaderRequestParserFactory();
 
-        $config    = [
+        $config       = [
             'authentication' => [
                 'api-key' => [
                     'header-name' => 'x-api-key',
                 ],
             ],
         ];
-        $container = $this->createStub(ContainerInterface::class);
+        $keyGenerator = $this->createStub(KeyGeneratorInterface::class);
+        $container    = $this->createStub(ContainerInterface::class);
         $container->method('get')
             ->willReturnMap([
                 ['config', $config],
+                [KeyGeneratorInterface::class, $keyGenerator],
             ]);
 
         $request = $this->createMock(ServerRequestInterface::class);
         $request->method('hasHeader')
-            ->with('x-api-key')
             ->willReturn(true);
         $request->method('getHeaderLine')
-            ->with('x-api-key')
+            ->willReturn('foo');
+        $keyGenerator->method('parse')
             ->willReturn($expected);
 
         $instance = $factory($container);

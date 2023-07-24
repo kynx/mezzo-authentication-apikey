@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace KynxTest\Mezzio\Authentication\ApiKey;
 
+use Kynx\ApiKey\ApiKey;
+use Kynx\ApiKey\KeyGeneratorInterface;
 use Kynx\Mezzio\Authentication\ApiKey\HeaderRequestParser;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub; // phpcs:ignore
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
@@ -13,19 +16,32 @@ final class HeaderRequestParserTest extends TestCase
 {
     private const API_KEY = 'test-api-key';
 
+    private KeyGeneratorInterface&MockObject $keyGenerator;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->keyGenerator = $this->createMock(KeyGeneratorInterface::class);
+    }
+
     public function testGetApiKeyReturnsKeyFromHeader(): void
     {
-        $parser  = new HeaderRequestParser('X-API-Key');
-        $request = $this->getRequest();
+        $expected = new ApiKey('test', 'aaaaaaaa', 'aaaaaaaaaaaaaaaaaaa');
+        $parser   = new HeaderRequestParser($this->keyGenerator, 'X-API-Key');
+        $request  = $this->getRequest();
+        $this->keyGenerator->method('parse')
+            ->with(self::API_KEY)
+            ->willReturn($expected);
 
         $actual = $parser->getApiKey($request);
-        self::assertSame(self::API_KEY, $actual);
+        self::assertSame($expected, $actual);
     }
 
     public function testGetApiKeyReturnsNullForMissingHeader(): void
     {
-        $parser  = new HeaderRequestParser('X-Missing-Header');
         $request = $this->getRequest();
+        $parser  = new HeaderRequestParser($this->keyGenerator, 'X-Missing-Header');
 
         $actual = $parser->getApiKey($request);
         self::assertNull($actual);

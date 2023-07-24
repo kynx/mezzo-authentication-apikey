@@ -5,12 +5,13 @@
     "license": "BSD-3-Clause",
     "authors": [
         {
-            "name": "Matt",
+            "name": "Matt Kynaston",
             "email": "matt@kynx.org"
         }
     ],
     "require": {
         "php": "~8.2",
+        "kynx/api-key-generator": "^2.0",
         "mezzio/mezzio-authentication": "^1.8",
         "psr/container": "^2.0",
         "psr/http-factory": "^1.0"
@@ -49,5 +50,10 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "sort-packages": true
+    },
+    "extra": {
+        "laminas": {
+            "config-provider": "Kynx\\Mezzio\\Authentication\\ApiKey\\ConfigProvider"
+        }
     }
 }

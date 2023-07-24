@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace KynxTest\Mezzio\Authentication\ApiKey;
 
+use Kynx\ApiKey\ApiKey;
 use Kynx\Mezzio\Authentication\ApiKey\ApiKeyAuthenticationFactory;
 use Kynx\Mezzio\Authentication\ApiKey\RequestParserInterface;
 use Mezzio\Authentication\Exception\InvalidConfigException;
@@ -81,17 +82,20 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
 
     public function testInvokeReturnsConfiguredInstance(): void
     {
-        $factory  = new ApiKeyAuthenticationFactory();
-        $apiKey   = 'test-api-key';
-        $user     = $this->createStub(UserInterface::class);
-        $response = $this->createStub(ResponseInterface::class);
+        $factory = new ApiKeyAuthenticationFactory();
+
+        $identifier = 'aaaaaaaa';
+        $secret     = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+        $apiKey     = new ApiKey('foo', $identifier, $secret);
+        $user       = $this->createStub(UserInterface::class);
+        $response   = $this->createStub(ResponseInterface::class);
 
         $requestParser = $this->createMock(RequestParserInterface::class);
         $requestParser->method('getApiKey')
             ->willReturn($apiKey);
         $userRepository = $this->createMock(UserRepositoryInterface::class);
         $userRepository->method('authenticate')
-            ->with($apiKey)
+            ->with($identifier, $secret)
             ->willReturn($user);
         $responseFactory = $this->createStub(ResponseFactoryInterface::class);
         $responseFactory->method('createResponse')
