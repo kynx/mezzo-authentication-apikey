@@ -1,6 +1,6 @@
 # kynx/mezzio-authentication-apikey
 
-[![Build Status](https://github.com/kynx/mezzio-authentication-apikey/workflows/Continuous%20Integration/badge.svg)](https://github.com/kynx/mezzio-authentication-apikey/actions?query=workflow%3A"Continuous+Integration")
+[![Continuous Integration](https://github.com/kynx/mezzo-authentication-apikey/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/kynx/mezzo-authentication-apikey/actions/workflows/continuous-integration.yml)
 
 This package provides a [Mezzio Authentication] adapter for logging in users with a well-structured API key.
 
