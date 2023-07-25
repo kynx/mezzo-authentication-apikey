@@ -14,7 +14,7 @@ To use this package to authenticate users you will need two things:
 
 Choose your prefix carefully. It can be used by tools like [GitHub's Secret Scanner] to find leaked keys. It should also
 provide enough information to help users and support identify the correct key to use. In the examples here we use
-`myco_sandbox` so show both the origin (`myco`) and the environment (`sandbox`) the key is for. If you've ever
+`myco_sandbox` to show both the origin (`myco`) and the environment (`sandbox`) the key is used with. If you have ever
 integrated with Stripe, this pattern will be familiar.
 
 Mezzio Authentication provides two user repositories out-the-box: `Htpasswd` and `PdoDatabase`. In the examples here we
@@ -177,7 +177,7 @@ myco_sandbox_Ez2FJvSAeRbLmLXYTyIzi8zSqxky6IXJ0VKxpqC8_69e51b54
 
 The generated key contains methods to extract the content you will need to persist in your user repository:
 
-* `ApiKey::getIdentifier()` returns the random string of characters used to look up the user. It's a bit like a
+* `ApiKey::getIdentifier()` returns the a string of characters used to look up the user. It's a bit like a
   username.
 * `ApiKey::getSecret()` returns the long "password" for the key
 

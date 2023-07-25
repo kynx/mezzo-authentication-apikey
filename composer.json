@@ -1,6 +1,7 @@
 {
     "name": "kynx/mezzio-authentication-apikey",
     "description": "Authenticate users with an API key in Mezzio applications",
+    "keywords": ["mezzio", "api", "authentication"],
     "type": "library",
     "license": "BSD-3-Clause",
     "authors": [
@@ -13,7 +14,7 @@
         "php": "~8.2",
         "kynx/api-key-generator": "^2.0",
         "mezzio/mezzio-authentication": "^1.8",
-        "psr/container": "^2.0",
+        "psr/container": "^1.0 || ^2.0",
         "psr/http-factory": "^1.0"
     },
     "require-dev": {
