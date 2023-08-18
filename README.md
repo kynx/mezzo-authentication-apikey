@@ -28,9 +28,10 @@ composer require kynx/mezzio-authentication-apikey
 
 ## Configuration
 
-The configuration either can be stored in a file under the `/config/autoload/` folder or in your application or module's `ConfigProvider`.
+The configuration either can be stored in a file under the `/config/autoload/` folder or in your application or module's
+`ConfigProvider`.
 
-Create a `config/autoload/api.global.php` and add the following:
+To use an autoloaded configuration, ceate a `config/autoload/api.global.php` and add the following:
 
 ```php
 <?php
@@ -49,7 +50,7 @@ return [
         ],
     ],
     'dependencies'   => [
-        'factories' => [
+        'aliases' => [
             AuthenticationInterface::class => ApiKeyAuthentication::class,
             UserRepositoryInterface::class => PdoDatabase::class,
         ],
@@ -159,7 +160,7 @@ key generator as used when parsing the header will be able to authenticate.
 
 use Kynx\ApiKey\KeyGeneratorInterface;
 
-require 'vendor/autoload.php'
+require 'vendor/autoload.php';
 
 $container    = require 'config/container.php';
 $keyGenerator = $container->get(KeyGeneratorInterface::class);
