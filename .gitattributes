@@ -9,3 +9,4 @@
 /psalm.xml export-ignore
 /test/ export-ignore
 /composer.lock export-ignore
+/renovate.json export-ignore
