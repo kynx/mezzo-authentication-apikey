@@ -11,16 +11,16 @@
         }
     ],
     "require": {
-        "php": "~8.2",
+        "php": "~8.2 || ~8.3",
         "kynx/api-key-generator": "^2.0",
         "mezzio/mezzio-authentication": "^1.8",
         "psr/container": "^1.0 || ^2.0",
         "psr/http-factory": "^1.0"
     },
     "require-dev": {
-        "laminas/laminas-coding-standard": "^2.3",
+        "laminas/laminas-coding-standard": "^3.0",
         "phpunit/phpunit": "^10.2",
-        "psalm/plugin-phpunit": "^0.18.4",
+        "psalm/plugin-phpunit": "^0.19",
         "squizlabs/php_codesniffer": "^3.7",
         "vimeo/psalm": "^5.13"
     },
