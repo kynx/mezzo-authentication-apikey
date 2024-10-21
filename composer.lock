@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b7335924c54423fb22ed95bf196f3cc",
+    "content-hash": "d8fff5f77aa68bf41c245ac47c0cb093",
     "packages": [
         {
             "name": "ircmaxell/random-lib",
@@ -117,28 +117,28 @@
         },
         {
             "name": "kynx/api-key-generator",
-            "version": "2.0.0",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kynx/api-key-generator.git",
-                "reference": "4936fe9d07d03fd9c0fd1a8754c3044e1dce471f"
+                "reference": "d715761ccdf5aeac04ee8beaedf828d5b53325b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kynx/api-key-generator/zipball/4936fe9d07d03fd9c0fd1a8754c3044e1dce471f",
-                "reference": "4936fe9d07d03fd9c0fd1a8754c3044e1dce471f",
+                "url": "https://api.github.com/repos/kynx/api-key-generator/zipball/d715761ccdf5aeac04ee8beaedf828d5b53325b3",
+                "reference": "d715761ccdf5aeac04ee8beaedf828d5b53325b3",
                 "shasum": ""
             },
             "require": {
                 "ircmaxell/random-lib": "^1.2",
-                "php": "~8.2"
+                "php": "~8.2.0 || ~8.3.0 || ~8.4.0"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "^2.3",
-                "phpunit/phpunit": "^10.2",
-                "psalm/plugin-phpunit": "^0.18.4",
-                "squizlabs/php_codesniffer": "^3.7",
-                "vimeo/psalm": "^5.13"
+                "laminas/laminas-coding-standard": "^3.0",
+                "phpunit/phpunit": "^10.5.37",
+                "psalm/plugin-phpunit": "^0.19",
+                "squizlabs/php_codesniffer": "^3.10",
+                "vimeo/psalm": "^5.26"
             },
             "type": "library",
             "autoload": {
@@ -164,9 +164,9 @@
             ],
             "support": {
                 "issues": "https://github.com/kynx/api-key-generator/issues",
-                "source": "https://github.com/kynx/api-key-generator/tree/2.0.0"
+                "source": "https://github.com/kynx/api-key-generator/tree/2.2.0"
             },
-            "time": "2023-07-23T10:42:11+00:00"
+            "time": "2024-10-21T12:37:26+00:00"
         },
         {
             "name": "mezzio/mezzio-authentication",
@@ -4522,7 +4522,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8.2 || ~8.3"
+        "php": "~8.2.0 || ~8.3.0 || ~8.4.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
