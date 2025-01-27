@@ -6,17 +6,17 @@ namespace KynxTest\Mezzio\Authentication\ApiKey;
 
 use Kynx\ApiKey\ApiKey;
 use Kynx\ApiKey\KeyGeneratorInterface;
+use Kynx\Mezzio\Authentication\ApiKey\HeaderRequestParser;
 use Kynx\Mezzio\Authentication\ApiKey\HeaderRequestParserFactory;
 use Mezzio\Authentication\Exception\InvalidConfigException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * @uses \Kynx\Mezzio\Authentication\ApiKey\HeaderRequestParser
- *
- * @covers \Kynx\Mezzio\Authentication\ApiKey\HeaderRequestParserFactory
- */
+#[CoversClass(HeaderRequestParserFactory::class)]
+#[UsesClass(HeaderRequestParser::class)]
 final class HeaderRequestParserFactoryTest extends TestCase
 {
     public function testInvokeMissingHeaderNameConfigThrowsException(): void

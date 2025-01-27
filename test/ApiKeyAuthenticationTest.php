@@ -9,6 +9,7 @@ use Kynx\Mezzio\Authentication\ApiKey\ApiKeyAuthentication;
 use Kynx\Mezzio\Authentication\ApiKey\RequestParserInterface;
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Authentication\UserRepositoryInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
@@ -16,9 +17,7 @@ use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * @covers \Kynx\Mezzio\Authentication\ApiKey\ApiKeyAuthentication
- */
+#[CoversClass(ApiKeyAuthentication::class)]
 final class ApiKeyAuthenticationTest extends TestCase
 {
     private RequestParserInterface&Stub $requestParser;

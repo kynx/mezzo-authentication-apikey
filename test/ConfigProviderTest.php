@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace KynxTest\Mezzio\Authentication\ApiKey;
 
 use Kynx\Mezzio\Authentication\ApiKey\ConfigProvider;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Kynx\Mezzio\Authentication\ApiKey\ConfigProvider
- */
+#[CoversClass(ConfigProvider::class)]
 final class ConfigProviderTest extends TestCase
 {
     public function testInvokeReturnsConfig(): void

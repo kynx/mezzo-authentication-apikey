@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace KynxTest\Mezzio\Authentication\ApiKey;
 
 use Kynx\ApiKey\ApiKey;
+use Kynx\Mezzio\Authentication\ApiKey\ApiKeyAuthentication;
 use Kynx\Mezzio\Authentication\ApiKey\ApiKeyAuthenticationFactory;
 use Kynx\Mezzio\Authentication\ApiKey\RequestParserInterface;
 use Mezzio\Authentication\Exception\InvalidConfigException;
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Authentication\UserRepositoryInterface;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * @uses \Kynx\Mezzio\Authentication\ApiKey\ApiKeyAuthentication
- *
- * @covers \Kynx\Mezzio\Authentication\ApiKey\ApiKeyAuthenticationFactory
- */
+#[CoversClass(ApiKeyAuthenticationFactory::class)]
+#[UsesClass(ApiKeyAuthentication::class)]
 final class ApiKeyAuthenticationFactoryTest extends TestCase
 {
     public function testMissingRequestParserThrowsException(): void

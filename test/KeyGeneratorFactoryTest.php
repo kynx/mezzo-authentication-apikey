@@ -8,12 +8,11 @@ use Kynx\ApiKey\KeyGenerator;
 use Kynx\ApiKey\KeyGeneratorChain;
 use Kynx\Mezzio\Authentication\ApiKey\KeyGeneratorFactory;
 use Mezzio\Authentication\Exception\InvalidConfigException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-/**
- * @covers \Kynx\Mezzio\Authentication\ApiKey\KeyGeneratorFactory
- */
+#[CoversClass(KeyGeneratorFactory::class)]
 final class KeyGeneratorFactoryTest extends TestCase
 {
     public function testMissingPrimaryKeyConfigurationThrowsException(): void
