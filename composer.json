@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+        "php": "~8.3.0 || ~8.4.0",
         "kynx/api-key-generator": "^2.2",
         "mezzio/mezzio-authentication": "^1.8",
         "psr/container": "^1.0 || ^2.0",

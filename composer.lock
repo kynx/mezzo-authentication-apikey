@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e3e7dc5b872f885b521ffbdd9e4af67b",
+    "content-hash": "1c3fdee550bce60b8b245b2a5e5e5488",
     "packages": [
         {
             "name": "kynx/api-key-generator",
@@ -5527,7 +5527,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0"
+        "php": "~8.3.0 || ~8.4.0"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
