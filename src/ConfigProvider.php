@@ -19,7 +19,7 @@ use Kynx\ApiKey\KeyGeneratorInterface;
  *   fallbacks?: array<array-key, ApiKeyConfig>
  * }
  */
-class ConfigProvider
+final readonly class ConfigProvider
 {
     public function __invoke(): array
     {
