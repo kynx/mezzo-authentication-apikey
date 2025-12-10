@@ -18,7 +18,7 @@ final class KeyGeneratorFactoryTest extends TestCase
     public function testMissingPrimaryKeyConfigurationThrowsException(): void
     {
         $factory   = new KeyGeneratorFactory();
-        $container = $this->createStub(ContainerInterface::class);
+        $container = self::createStub(ContainerInterface::class);
         $container->method('get')
             ->willReturnMap([
                 ['config', []],
@@ -39,7 +39,7 @@ final class KeyGeneratorFactoryTest extends TestCase
                 ],
             ],
         ];
-        $container = $this->createStub(ContainerInterface::class);
+        $container = self::createStub(ContainerInterface::class);
         $container->method('get')
             ->willReturnMap([
                 ['config', $config],
@@ -63,7 +63,7 @@ final class KeyGeneratorFactoryTest extends TestCase
                 ],
             ],
         ];
-        $container = $this->createStub(ContainerInterface::class);
+        $container = self::createStub(ContainerInterface::class);
         $container->method('get')
             ->willReturnMap([
                 ['config', $config],
@@ -92,7 +92,7 @@ final class KeyGeneratorFactoryTest extends TestCase
                 ],
             ],
         ];
-        $container = $this->createStub(ContainerInterface::class);
+        $container = self::createStub(ContainerInterface::class);
         $container->method('get')
             ->willReturnMap([
                 ['config', $config],

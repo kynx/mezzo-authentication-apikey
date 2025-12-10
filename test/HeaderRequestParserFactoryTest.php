@@ -22,7 +22,7 @@ final class HeaderRequestParserFactoryTest extends TestCase
     public function testInvokeMissingHeaderNameConfigThrowsException(): void
     {
         $factory   = new HeaderRequestParserFactory();
-        $container = $this->createStub(ContainerInterface::class);
+        $container = self::createStub(ContainerInterface::class);
 
         self::expectException(InvalidConfigException::class);
         $factory($container);
@@ -40,15 +40,15 @@ final class HeaderRequestParserFactoryTest extends TestCase
                 ],
             ],
         ];
-        $keyGenerator = $this->createStub(KeyGeneratorInterface::class);
-        $container    = $this->createStub(ContainerInterface::class);
+        $keyGenerator = self::createStub(KeyGeneratorInterface::class);
+        $container    = self::createStub(ContainerInterface::class);
         $container->method('get')
             ->willReturnMap([
                 ['config', $config],
                 [KeyGeneratorInterface::class, $keyGenerator],
             ]);
 
-        $request = $this->createMock(ServerRequestInterface::class);
+        $request = self::createStub(ServerRequestInterface::class);
         $request->method('hasHeader')
             ->willReturn(true);
         $request->method('getHeaderLine')

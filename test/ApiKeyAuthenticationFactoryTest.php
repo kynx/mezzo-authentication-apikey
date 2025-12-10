@@ -26,7 +26,7 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
     public function testMissingRequestParserThrowsException(): void
     {
         $factory   = new ApiKeyAuthenticationFactory();
-        $container = $this->createStub(ContainerInterface::class);
+        $container = self::createStub(ContainerInterface::class);
         $container->method('has')
             ->willReturnMap([
                 [RequestParserInterface::class, false],
@@ -42,7 +42,7 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
     public function testMissingUserRepositoryThrowsException(): void
     {
         $factory   = new ApiKeyAuthenticationFactory();
-        $container = $this->createStub(ContainerInterface::class);
+        $container = self::createStub(ContainerInterface::class);
         $container->method('has')
             ->willReturnMap([
                 [RequestParserInterface::class, true],
@@ -51,7 +51,7 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
             ]);
         $container->method('get')
             ->willReturnMap([
-                [RequestParserInterface::class, $this->createStub(RequestParserInterface::class)],
+                [RequestParserInterface::class, self::createStub(RequestParserInterface::class)],
             ]);
 
         $this->expectException(InvalidConfigException::class);
@@ -62,7 +62,7 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
     public function testMissingResponseFactoryThrowsException(): void
     {
         $factory   = new ApiKeyAuthenticationFactory();
-        $container = $this->createStub(ContainerInterface::class);
+        $container = self::createStub(ContainerInterface::class);
         $container->method('has')
             ->willReturnMap([
                 [RequestParserInterface::class, true],
@@ -71,8 +71,8 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
             ]);
         $container->method('get')
             ->willReturnMap([
-                [RequestParserInterface::class, $this->createStub(RequestParserInterface::class)],
-                [UserRepositoryInterface::class, $this->createStub(UserRepositoryInterface::class)],
+                [RequestParserInterface::class, self::createStub(RequestParserInterface::class)],
+                [UserRepositoryInterface::class, self::createStub(UserRepositoryInterface::class)],
             ]);
 
         $this->expectException(InvalidConfigException::class);
@@ -87,21 +87,21 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
         $identifier = 'aaaaaaaa';
         $secret     = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
         $apiKey     = new ApiKey('foo', $identifier, $secret);
-        $user       = $this->createStub(UserInterface::class);
-        $response   = $this->createStub(ResponseInterface::class);
+        $user       = self::createStub(UserInterface::class);
+        $response   = self::createStub(ResponseInterface::class);
 
-        $requestParser = $this->createMock(RequestParserInterface::class);
+        $requestParser = self::createStub(RequestParserInterface::class);
         $requestParser->method('getApiKey')
             ->willReturn($apiKey);
-        $userRepository = $this->createMock(UserRepositoryInterface::class);
+        $userRepository = self::createStub(UserRepositoryInterface::class);
         $userRepository->method('authenticate')
             ->with($identifier, $secret)
             ->willReturn($user);
-        $responseFactory = $this->createStub(ResponseFactoryInterface::class);
+        $responseFactory = self::createStub(ResponseFactoryInterface::class);
         $responseFactory->method('createResponse')
             ->willReturn($response);
 
-        $container = $this->createStub(ContainerInterface::class);
+        $container = self::createStub(ContainerInterface::class);
         $container->method('has')
             ->willReturnMap([
                 [RequestParserInterface::class, true],
@@ -115,7 +115,7 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
                 [ResponseFactoryInterface::class, $responseFactory],
             ]);
 
-        $request = $this->createStub(ServerRequestInterface::class);
+        $request = self::createStub(ServerRequestInterface::class);
 
         $instance      = $factory($container);
         $authenticated = $instance->authenticate($request);
