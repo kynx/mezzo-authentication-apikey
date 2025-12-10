@@ -10,7 +10,6 @@ use Kynx\Mezzio\Authentication\ApiKey\RequestParserInterface;
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Authentication\UserRepositoryInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -21,17 +20,17 @@ use Psr\Http\Message\ServerRequestInterface;
 final class ApiKeyAuthenticationTest extends TestCase
 {
     private RequestParserInterface&Stub $requestParser;
-    private UserRepositoryInterface&MockObject $userRepository;
-    private ResponseFactoryInterface&MockObject $responseFactory;
+    private UserRepositoryInterface&Stub $userRepository;
+    private ResponseFactoryInterface&Stub $responseFactory;
     private ApiKeyAuthentication $authentication;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->requestParser   = $this->createStub(RequestParserInterface::class);
-        $this->userRepository  = $this->createMock(UserRepositoryInterface::class);
-        $this->responseFactory = $this->createMock(ResponseFactoryInterface::class);
+        $this->requestParser   = self::createStub(RequestParserInterface::class);
+        $this->userRepository  = self::createStub(UserRepositoryInterface::class);
+        $this->responseFactory = self::createStub(ResponseFactoryInterface::class);
 
         $this->authentication = new ApiKeyAuthentication(
             $this->requestParser,
@@ -44,16 +43,23 @@ final class ApiKeyAuthenticationTest extends TestCase
     {
         $this->requestParser->method('getApiKey')
             ->willReturn(null);
-        $this->userRepository->expects(self::never())
+        $userRepository = $this->createMock(UserRepositoryInterface::class);
+        $userRepository->expects(self::never())
             ->method('authenticate');
 
-        $actual = $this->authentication->authenticate($this->createStub(ServerRequestInterface::class));
+        $authentication = new ApiKeyAuthentication(
+            $this->requestParser,
+            $userRepository,
+            $this->responseFactory
+        );
+
+        $actual = $authentication->authenticate(self::createStub(ServerRequestInterface::class));
         self::assertNull($actual);
     }
 
     public function testAuthenticateAuthenticatesAgainstUserRepository(): void
     {
-        $expected   = $this->createStub(UserInterface::class);
+        $expected   = self::createStub(UserInterface::class);
         $identifier = 'aaaaaaaa';
         $secret     = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
         $apiKey     = new ApiKey('foo', $identifier, $secret);
@@ -63,18 +69,18 @@ final class ApiKeyAuthenticationTest extends TestCase
             ->with($identifier, $secret)
             ->willReturn($expected);
 
-        $actual = $this->authentication->authenticate($this->createStub(ServerRequestInterface::class));
+        $actual = $this->authentication->authenticate(self::createStub(ServerRequestInterface::class));
         self::assertSame($expected, $actual);
     }
 
     public function testUnauthorizedResponseReturns401Response(): void
     {
-        $expected = $this->createStub(ResponseInterface::class);
+        $expected = self::createStub(ResponseInterface::class);
         $this->responseFactory->method('createResponse')
             ->with(401)
             ->willReturn($expected);
 
-        $actual = $this->authentication->unauthorizedResponse($this->createStub(ServerRequestInterface::class));
+        $actual = $this->authentication->unauthorizedResponse(self::createStub(ServerRequestInterface::class));
         self::assertSame($expected, $actual);
     }
 }

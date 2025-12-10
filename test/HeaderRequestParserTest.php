@@ -7,7 +7,6 @@ namespace KynxTest\Mezzio\Authentication\ApiKey;
 use Kynx\ApiKey\ApiKey;
 use Kynx\ApiKey\KeyGeneratorInterface;
 use Kynx\Mezzio\Authentication\ApiKey\HeaderRequestParser;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub; // phpcs:ignore
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,13 +15,13 @@ final class HeaderRequestParserTest extends TestCase
 {
     private const API_KEY = 'test-api-key';
 
-    private KeyGeneratorInterface&MockObject $keyGenerator;
+    private KeyGeneratorInterface&Stub $keyGenerator;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->keyGenerator = $this->createMock(KeyGeneratorInterface::class);
+        $this->keyGenerator = self::createStub(KeyGeneratorInterface::class);
     }
 
     public function testGetApiKeyReturnsKeyFromHeader(): void
@@ -49,7 +48,7 @@ final class HeaderRequestParserTest extends TestCase
 
     private function getRequest(): ServerRequestInterface&Stub
     {
-        $request = $this->createStub(ServerRequestInterface::class);
+        $request = self::createStub(ServerRequestInterface::class);
 
         $request->method('hasHeader')
             ->willReturnMap([
