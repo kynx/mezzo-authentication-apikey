@@ -15,21 +15,14 @@ final class HeaderRequestParserTest extends TestCase
 {
     private const API_KEY = 'test-api-key';
 
-    private KeyGeneratorInterface&Stub $keyGenerator;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->keyGenerator = self::createStub(KeyGeneratorInterface::class);
-    }
-
     public function testGetApiKeyReturnsKeyFromHeader(): void
     {
-        $expected = new ApiKey('test', 'aaaaaaaa', 'aaaaaaaaaaaaaaaaaaa');
-        $parser   = new HeaderRequestParser($this->keyGenerator, 'X-API-Key');
-        $request  = $this->getRequest();
-        $this->keyGenerator->method('parse')
+        $expected     = new ApiKey('test', 'aaaaaaaa', 'aaaaaaaaaaaaaaaaaaa');
+        $keyGenerator = $this->createMock(KeyGeneratorInterface::class);
+        $parser       = new HeaderRequestParser($keyGenerator, 'X-API-Key');
+        $request      = $this->getRequest();
+        $keyGenerator->expects(self::once())
+            ->method('parse')
             ->with(self::API_KEY)
             ->willReturn($expected);
 
@@ -39,8 +32,9 @@ final class HeaderRequestParserTest extends TestCase
 
     public function testGetApiKeyReturnsNullForMissingHeader(): void
     {
-        $request = $this->getRequest();
-        $parser  = new HeaderRequestParser($this->keyGenerator, 'X-Missing-Header');
+        $request      = $this->getRequest();
+        $keyGenerator = self::createStub(KeyGeneratorInterface::class);
+        $parser       = new HeaderRequestParser($keyGenerator, 'X-Missing-Header');
 
         $actual = $parser->getApiKey($request);
         self::assertNull($actual);
