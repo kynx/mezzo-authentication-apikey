@@ -93,8 +93,9 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
         $requestParser = self::createStub(RequestParserInterface::class);
         $requestParser->method('getApiKey')
             ->willReturn($apiKey);
-        $userRepository = self::createStub(UserRepositoryInterface::class);
-        $userRepository->method('authenticate')
+        $userRepository = $this->createMock(UserRepositoryInterface::class);
+        $userRepository->expects(self::once())
+            ->method('authenticate')
             ->with($identifier, $secret)
             ->willReturn($user);
         $responseFactory = self::createStub(ResponseFactoryInterface::class);
