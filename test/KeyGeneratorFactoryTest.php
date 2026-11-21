@@ -24,8 +24,8 @@ final class KeyGeneratorFactoryTest extends TestCase
                 ['config', []],
             ]);
 
-        $this->expectException(InvalidConfigException::class);
-        $this->expectExceptionMessage('Primary API key configuration not present');
+        self::expectException(InvalidConfigException::class);
+        self::expectExceptionMessageIsOrContains('Primary API key configuration not present');
         $factory($container);
     }
 
@@ -45,8 +45,8 @@ final class KeyGeneratorFactoryTest extends TestCase
                 ['config', $config],
             ]);
 
-        $this->expectException(InvalidConfigException::class);
-        $this->expectExceptionMessage('Prefix not present');
+        self::expectException(InvalidConfigException::class);
+        self::expectExceptionMessageIsOrContains('Prefix not present');
         $factory($container);
     }
 
