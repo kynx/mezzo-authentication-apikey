@@ -34,8 +34,8 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
                 [ResponseFactoryInterface::class, false],
             ]);
 
-        $this->expectException(InvalidConfigException::class);
-        $this->expectExceptionMessage('Request parser not found in container');
+        self::expectException(InvalidConfigException::class);
+        self::expectExceptionMessageIsOrContains('Request parser not found in container');
         $factory($container);
     }
 
@@ -54,8 +54,8 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
                 [RequestParserInterface::class, self::createStub(RequestParserInterface::class)],
             ]);
 
-        $this->expectException(InvalidConfigException::class);
-        $this->expectExceptionMessage('User repository not found in container');
+        self::expectException(InvalidConfigException::class);
+        self::expectExceptionMessageIsOrContains('User repository not found in container');
         $factory($container);
     }
 
@@ -75,8 +75,8 @@ final class ApiKeyAuthenticationFactoryTest extends TestCase
                 [UserRepositoryInterface::class, self::createStub(UserRepositoryInterface::class)],
             ]);
 
-        $this->expectException(InvalidConfigException::class);
-        $this->expectExceptionMessage('Response factory not found in container');
+        self::expectException(InvalidConfigException::class);
+        self::expectExceptionMessageIsOrContains('Response factory not found in container');
         $factory($container);
     }
 
